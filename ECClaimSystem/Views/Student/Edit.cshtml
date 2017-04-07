@@ -1,0 +1,140 @@
+﻿@model ECClaimSystem.Models.ECClaim
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_content">
+            @using (Html.BeginForm("UpdateECClaim", "Student", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal form-label-left" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ActionLink("Back to List", "ShowListECClaim")
+                @Html.TextBoxFor(model => model.ClaimId, new { @style = "visibility: hidden" })
+                <span class="section">EC Claim Update Form</span>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="item form-group">
+
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                        Summary
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @if (Model.SubmittedDate.Value.AddHours(1) > DateTime.Now)
+                        {
+                            @Html.TextAreaFor(model => model.Summary, 2, 50, new { @class = "form-control col-md-7 col-xs-12" } )
+                        }
+                        else
+                        {
+                            @Html.TextAreaFor(model => model.Summary, 2, 50, new { @class = "form-control col-md-7 col-xs-12", @readonly = true })
+                        }
+
+
+                    </div>
+                </div>
+                <div class="item form-group">
+
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                        Duration of Circumstance
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-5">
+                            @Html.ValidationMessageFor(model => model.CircumstanceStartDate, "", new { @class = "text-danger" })
+                            <hr />
+                            <span>Start Date<span class="required">*</span></span>
+                            @if (Model.SubmittedDate.Value.AddHours(1) > DateTime.Now)
+                            {
+                                @Html.TextBoxFor(model => model.CircumstanceStartDate, "{0:yyyy-MM-dd}", new { @type = "date" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => model.CircumstanceStartDate, "{0:yyyy-MM-dd}", new { @type = "date", @disabled = "disabled"})
+                            }
+                            @Html.TextBoxFor(model => model.CircumstanceStartDate, new { @style = "visibility: hidden" })
+
+
+                        </div>
+                        <div class="col-md-5">
+
+                            @Html.ValidationMessageFor(model => model.CircumstanceEndDate, "", new { @class = "text-danger" })
+                            <hr />
+                            <span>End Date<span class="required">*</span></span>
+                            @if (Model.SubmittedDate.Value.AddHours(1) > DateTime.Now)
+                            {
+                                @Html.TextBoxFor(model => model.CircumstanceEndDate, "{0:yyyy-MM-dd}", new { @type = "date" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => model.CircumstanceEndDate, "{0:yyyy-MM-dd}", new { @type = "date", @disabled = "disabled" })
+                            }
+                            @Html.TextBoxFor(model => model.CircumstanceEndDate, new { @style = "visibility: hidden" })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                        Evidences (image/pdf file)
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="file" name="upEvidence" value="" accept="image/* , application/pdf" />
+                    </div>
+                </div>
+
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                        Situation<span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                        @Html.ValidationMessageFor(model => model.Situation, "", new { @class = "text-danger" })
+                        <hr />
+                        @if (Model.SubmittedDate.Value.AddHours(1) > DateTime.Now)
+                        {
+                            @Html.TextAreaFor(model => model.Situation, 8, 50, new { @class = "form-control col-md-7 col-xs-12"} )
+                        }
+                        else
+                        {
+                            @Html.TextAreaFor(model => model.Situation, 8, 50, new { @class = "form-control col-md-7 col-xs-12", @readonly = true } )
+                        }
+                     
+
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                        Result<span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                        @Html.ValidationMessageFor(model => model.EffectSituation, "", new { @class = "text-danger" })
+                        <hr />
+                        @if (Model.SubmittedDate.Value.AddHours(1) > DateTime.Now)
+                        {
+                            @Html.TextAreaFor(model => model.EffectSituation, 8, 50, new { @class = "form-control col-md-7 col-xs-12", @readonly = true })
+                        }
+                        else
+                        {
+                            @Html.TextAreaFor(model => model.EffectSituation, 8, 50, new { @class = "form-control col-md-7 col-xs-12", @readonly = true })
+                        }
+                       
+
+
+                    </div>
+                </div>
+
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-3">
+                        <input id="send" type="submit" class="btn btn-success" value="Update" />
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Cancel","Student")'">Cancel</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+

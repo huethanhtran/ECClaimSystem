@@ -1,0 +1,126 @@
+﻿@model ECClaimSystem.Models.ECClaim
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<p>
+    @Html.ActionLink("Back to List", "ShowListECClaim")
+</p>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_content">
+            <h2>Details</h2>
+            <div>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+
+                    <div class="form-group">
+
+                        <label class="col-md-3 col-sm-3 col-xs-12">
+                            Summary
+                        </label>
+
+
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.DisplayFor(model => model.Summary)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-3 col-xs-12" >
+                            Situation
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.DisplayFor(model => model.Situation)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-3 col-xs-12">
+                            Result
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.DisplayFor(model => model.EffectSituation)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-3 col-xs-12">
+                            Duration
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.DisplayFor(model => model.CircumstanceStartDate, "0:dd/MM/yyyy") - @Html.DisplayFor(model => model.CircumstanceEndDate, "0:dd/MM/yyyy")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-3 col-xs-12" >
+                            Submitted Date - Final Closure Date - Result Date
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.DisplayFor(model => model.SubmittedDate, "0:dd/MM/yyyy") - @Html.DisplayFor(model => model.FinalClosureDate, "0:dd/MM/yyyy") -
+                            @if (Model.DecisionDate != null)
+                            {
+                                @Html.DisplayFor(model => model.DecisionDate, "0:dd/MM/yyyy")
+                            }
+                            else
+                            {
+                                <span>Not yet</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-3 col-xs-12">
+                            Claim Status
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @if (Model.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Pending)
+                            {
+                                <span>Pending</span>
+                            }
+                            @if (Model.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Accepted)
+                            {
+                                <span>Accepted</span>
+                            }
+                            @if (Model.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Processed)
+                            {
+                                <span>Processed</span>
+                            }
+                            @if (Model.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Rejected)
+                            {
+                                <span>Rejected</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-3 col-xs-12">
+                            Decision
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @if (Model.DecisionStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.DecisionStatus.Pending)
+                            {
+                            <span>Pending</span>
+                            }
+                            @if (Model.DecisionStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.DecisionStatus.Fail)
+                            {
+                            <span>Fail</span>
+                            }
+                            @if (Model.DecisionStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.DecisionStatus.Success)
+                            {
+                            <span>Success</span>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-3 col-xs-12">
+                            Has Evidence
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.DisplayFor(model => model.HasEvidence)
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 8.5" name="dbECClaimSystem">
+  <DataContextMoniker Name="/dbECClaimSystemDataContext" />
+  <nestedChildShapes>
+    <classShape Id="7e4e2ccb-f3da-4ce2-9cd2-193b46116a79" absoluteBounds="6.25, 1, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/dbECClaimSystemDataContext/ECClaim" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5a247a1c-1efa-4aef-b115-65d347f5bf58" absoluteBounds="6.265, 1.46, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="97cce4f7-c3cb-4ea9-b28f-af13cbf04543" absoluteBounds="3.5, 1.375, 2, 3.1170068359375005">
+      <DataClassMoniker Name="/dbECClaimSystemDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="33e43943-412f-46d4-8b6c-642588a7f3a1" absoluteBounds="3.515, 1.835, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="84a7c4ae-3ab2-4167-a460-835f0ba57ee4" absoluteBounds="9, 2, 2, 1.9631982421875003">
+      <DataClassMoniker Name="/dbECClaimSystemDataContext/ECEvidence" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0b1d5218-97e4-4b7e-b1b4-ac2fe950db3d" absoluteBounds="9.015, 2.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="031b1524-8e4e-4322-826a-7e442725efba" absoluteBounds="0.75, 6.125, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dbECClaimSystemDataContext/Faculty" />
+      <nestedChildShapes>
+        <elementListCompartment Id="36cc2949-5284-49c5-83b2-b812fb9a8b8f" absoluteBounds="0.765, 6.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="63a16185-a3df-4e48-8531-62ee812c1607" absoluteBounds="0.75, 2.25, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/dbECClaimSystemDataContext/Role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a1ac9dbb-5a45-429c-ab5d-c5773cf6c6f3" absoluteBounds="0.765, 2.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="740a881a-f702-49cd-bd36-d6352e88d51f" absoluteBounds="3.75, 5.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dbECClaimSystemDataContext/Setting" />
+      <nestedChildShapes>
+        <elementListCompartment Id="653f6c13-0e2e-4e62-b779-31dd494e7ffa" absoluteBounds="3.765, 6.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 2.93350341796875); (6.25 : 2.93350341796875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dbECClaimSystemDataContext/User/User_ECClaim" />
+      <nodes>
+        <classShapeMoniker Id="97cce4f7-c3cb-4ea9-b28f-af13cbf04543" />
+        <classShapeMoniker Id="7e4e2ccb-f3da-4ce2-9cd2-193b46116a79" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 2.98159912109375); (9 : 2.98159912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dbECClaimSystemDataContext/ECClaim/ECClaim_ECEvidence" />
+      <nodes>
+        <classShapeMoniker Id="7e4e2ccb-f3da-4ce2-9cd2-193b46116a79" />
+        <classShapeMoniker Id="84a7c4ae-3ab2-4167-a460-835f0ba57ee4" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 7.54734537760417); (3.59375 : 7.54734537760417); (3.59375 : 4.4920068359375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dbECClaimSystemDataContext/Faculty/Faculty_User" />
+      <nodes>
+        <classShapeMoniker Id="031b1524-8e4e-4322-826a-7e442725efba" />
+        <classShapeMoniker Id="97cce4f7-c3cb-4ea9-b28f-af13cbf04543" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.94314697265625); (3.5 : 2.94314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dbECClaimSystemDataContext/Role/Role_User" />
+      <nodes>
+        <classShapeMoniker Id="63a16185-a3df-4e48-8531-62ee812c1607" />
+        <classShapeMoniker Id="97cce4f7-c3cb-4ea9-b28f-af13cbf04543" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

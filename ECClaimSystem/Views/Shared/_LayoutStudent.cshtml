@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EC Claim System</title>
+    @Styles.Render("~/Content/Admin/css")
+
+    <script src="~/Content/Scripts/bootstrap.min.js"></script>
+    <script src="~/Content/Scripts/custom.min.js"></script>
+    <script src="~/Content/Scripts/daterangepicker.js"></script>
+    <script src="~/Content/Scripts/icheck.min.js"></script>
+    <script src="~/Content/Scripts/jquery.min.js"></script>
+    <script src="~/Content/Scripts/moment.min.js"></script>
+    <script src="~/Content/Scripts/dataTables.bootstrap.min.js"></script>
+</head>
+<body class="nav-md" style="background: #EDEDED !important">
+    <div class="container body">
+        <div class="main_container">
+            <div style="float:right; margin-right:50px;">
+                @Html.ActionLink("Logout", "Logout", "User")
+            </div>
+            <!-- top navigation -->
+            <!-- /top navigation -->
+            <!-- page content -->
+            
+                @RenderBody()
+           
+            <!-- /page content -->
+            <!-- footer content -->
+         
+            <!-- /footer content -->
+        </div>
+    </div>
+
+</body>
+</html>

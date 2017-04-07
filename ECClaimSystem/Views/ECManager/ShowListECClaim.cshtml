@@ -1,0 +1,120 @@
+﻿@model IEnumerable<ECClaimSystem.Models.ECClaim>
+
+@{
+    ViewBag.Title = "ShowListECClaim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Faculty> lsFaculty = new List<Faculty>();
+    if (Session["Faculties"] != null)
+    {
+        lsFaculty = Session["Faculties"] as List<Faculty>;
+    }
+}
+@using (Html.BeginForm("FilterECClaimByFaculty", "ECManager", FormMethod.Post, new { id = "formFaculty", name = "formFaculty" }))
+{
+    <div class="form-group">
+        @Html.DropDownList("Faculties", new SelectList(lsFaculty, "FacultyId", "FacultyName"), "Select Faculty", new { @class = "form-control", onchange = "SortByFaculty(this);" })
+
+    </div>
+
+}
+
+
+<span class="text-danger">@ViewBag.Message</span>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_content">
+            @if (Model.Count() > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr>
+                                <th class="column-title">
+                                    @Html.DisplayNameFor(model => model.Summary)
+                                </th>
+                                <th class="column-title">
+                                    @Html.DisplayNameFor(model => model.Situation)
+                                </th>
+                                <th class="column-title">
+                                    Effect
+                                </th>
+                                <th class="column-title">
+                                    Submitted Date
+                                </th>
+                                <th class="column-title">
+                                    @Html.ActionLink("Final Closure Date", "SortECClaim", "User", new { type = (int)ECClaimSystem.Models.Elements.ConstantsKey.SortType.ClosureDate }, new { @style = "color:white" })
+                                </th>
+                                <th class="column-title">
+                                    Claim Status
+                                </th>
+                                <th class="column-title">
+                                    @Html.DisplayNameFor(model => model.Active)
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr class="even pointer">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Summary)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Situation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EffectSituation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SubmittedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FinalClosureDate)
+                                    </td>
+                                    <td>
+                                        @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Pending)
+                                        {
+                                            <span>Pending</span>
+                                        }
+                                        @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Accepted)
+                                        {
+                                            <span>Accepted</span>
+                                        }
+                                        @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Processed)
+                                        {
+                                            <span>Processed</span>
+                                        }
+                                        @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Rejected)
+                                        {
+                                            <span>Rejected</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Active)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Details", "Details", new { id = item.ClaimId})
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+
+        </div>
+    </div>
+</div>
+<script>
+    function SortByFaculty(item) {
+        var value = $(item).val();
+        $("#formFaculty").attr("action", "/ECManager/FilterECClaimByFaculty?facultyId=" + value);
+        document.formFaculty.submit();
+    }
+</script>

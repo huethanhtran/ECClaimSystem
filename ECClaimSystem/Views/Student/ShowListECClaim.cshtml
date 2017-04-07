@@ -1,0 +1,110 @@
+﻿@model IEnumerable<ECClaimSystem.Models.ECClaim>
+
+@{
+    ViewBag.Title = "List EC Claims";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+<span class="text-danger">@ViewBag.Message</span>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_content">
+            @if (Model.Count() > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr>
+                                <th class="column-title">
+                                    @Html.DisplayNameFor(model => model.Summary)
+                                </th>
+                                <th class="column-title">
+                                    @Html.DisplayNameFor(model => model.Situation)
+                                </th>
+                                <th class="column-title">
+                                    Effect
+                                </th>
+                                <th class="column-title">
+                                    Submitted Date
+                                </th>
+                                <th class="column-title">
+                                   @Html.ActionLink("Final Closure Date", "SortECClaim", "User", new { type = (int)ECClaimSystem.Models.Elements.ConstantsKey.SortType.ClosureDate}, new { @style = "color:white"})
+                                </th>
+                                <th class="column-title">
+                                    Claim Status
+                                </th>
+                                <th class="column-title">
+                                    Has Evidence
+                                </th>
+                                <th class="column-title">
+                                    @Html.DisplayNameFor(model => model.Active)
+                                </th>
+                                <th></th>
+                            </tr>
+                          
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr class="even pointer">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Summary)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Situation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EffectSituation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SubmittedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FinalClosureDate)
+                                    </td>
+                                    <td>
+                                        @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Pending)
+                                        {
+                                            <span>Pending</span>
+                                        }
+                                        @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Accepted)
+                                        {
+                                            <span>Accepted</span>
+                                        }
+                                        @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Processed)
+                                        {
+                                            <span>Processed</span>
+                                        }
+                                        @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Rejected)
+                                        {
+                                            <span>Rejected</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HasEvidence)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Active)
+                                    </td>
+                                    <td>
+                                        @if (DateTime.Now < item.FinalClosureDate)
+                                        {
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ClaimId })
+
+                                        }
+
+                                        | @Html.ActionLink("Details", "Details", new { id = item.ClaimId }) |
+                                        @Html.ActionLink("Delete", "DeleteECClaim","User", new { id = item.ClaimId })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                
+            }
+
+        </div>
+    </div>
+</div>
