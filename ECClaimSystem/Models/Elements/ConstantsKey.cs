@@ -17,7 +17,7 @@ namespace ECClaimSystem.Models.Elements
         }
         public enum ClaimStatus
         {
-           Pending = 1,
+           Pending = 1, 
            Accepted = 2,
            Processed = 3,
            Rejected = 4
