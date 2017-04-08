@@ -122,7 +122,7 @@ namespace ECClaimSystem.Controllers
             return View(lsECClaim);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             ECClaim ec = _ecClaimRepository.GetECClaimById(id);
             Models.ECClaim claim = new Models.ECClaim();
@@ -194,7 +194,7 @@ namespace ECClaimSystem.Controllers
             return View("Edit", model);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             ECClaim ec = _ecClaimRepository.GetECClaimById(id);
             Models.ECClaim claim = new Models.ECClaim();

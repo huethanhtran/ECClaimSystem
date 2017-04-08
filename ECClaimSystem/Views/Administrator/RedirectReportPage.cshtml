@@ -1,31 +1,29 @@
 ﻿@model IEnumerable<ECClaimSystem.Models.ECClaim>
 
 @{
-    ViewBag.Title = "ShowListECClaim";
+    ViewBag.Title = "RedirectReportPage";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<Faculty> lsFaculty = new List<Faculty>();
-    if (Session["Faculties"] != null)
-    {
-        lsFaculty = Session["Faculties"] as List<Faculty>;
-    }
 }
-@using (Html.BeginForm("FilterECClaimByFaculty", "ECManager", FormMethod.Post, new { id = "formFaculty", name = "formFaculty" }))
+
+@using (Html.BeginForm("ReportClaims", "Administrator", FormMethod.Post, new { id = "formFaculty", name = "formFaculty" }))
 {
     <div class="col-md-12">
         <div class="col-md-5">
             <div class="form-group">
-                @Html.DropDownList("Faculties", new SelectList(lsFaculty, "FacultyId", "FacultyName"), "Select Faculty", new { @class = "form-control", onchange = "SortByFaculty(this);" })
+                @Html.DropDownList("ReportType", EnumHelper.GetSelectList(typeof(ECClaimSystem.Models.Elements.ConstantsKey.ReportType)), "Select Report Type", new { @class = "form-control", onchange = "SortByReport(this);" })
 
             </div>
         </div>
-        
+
     </div>
-   
+
 
 }
 
 
 <span class="text-danger">@ViewBag.Message</span>
+<span class="text-danger">@ViewBag.TotalUser</span>
+<span class="text-danger">@ViewBag.Percent</span>
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
         <div class="x_content">
@@ -104,7 +102,7 @@
                                         @Html.DisplayFor(modelItem => item.Active)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Details", "Details", new { id = item.ClaimId})
+                                        @Html.ActionLink("Details", "Details", new { id = item.ClaimId })
                                     </td>
                                 </tr>
                             }
@@ -118,9 +116,9 @@
     </div>
 </div>
 <script>
-    function SortByFaculty(item) {
+    function SortByReport(item) {
         var value = $(item).val();
-        $("#formFaculty").attr("action", "/ECManager/FilterECClaimByFaculty?facultyId=" + value);
+        $("#formFaculty").attr("action", "/Administrator/ReportClaims?type=" + value);
         document.formFaculty.submit();
     }
 </script>

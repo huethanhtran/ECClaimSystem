@@ -3,26 +3,8 @@
 @{
     ViewBag.Title = "ShowListECClaim";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<Faculty> lsFaculty = new List<Faculty>();
-    if (Session["Faculties"] != null)
-    {
-        lsFaculty = Session["Faculties"] as List<Faculty>;
-    }
 }
-@using (Html.BeginForm("FilterECClaimByFaculty", "ECManager", FormMethod.Post, new { id = "formFaculty", name = "formFaculty" }))
-{
-    <div class="col-md-12">
-        <div class="col-md-5">
-            <div class="form-group">
-                @Html.DropDownList("Faculties", new SelectList(lsFaculty, "FacultyId", "FacultyName"), "Select Faculty", new { @class = "form-control", onchange = "SortByFaculty(this);" })
 
-            </div>
-        </div>
-        
-    </div>
-   
-
-}
 
 
 <span class="text-danger">@ViewBag.Message</span>
@@ -52,6 +34,9 @@
                                 </th>
                                 <th class="column-title">
                                     Claim Status
+                                </th>
+                                <th class="column-title">
+                                    Decision
                                 </th>
                                 <th class="column-title">
                                     @Html.DisplayNameFor(model => model.Active)
@@ -101,10 +86,28 @@
                                         }
                                     </td>
                                     <td>
+                                        @if (item.HasEvidence == true && item.FinalClosureDate.Value.AddDays(item.OutCome) > DateTime.Now)
+                                        {
+                                            @Html.DropDownListFor(modelItem => item.DecisionStatus, EnumHelper.GetSelectList(typeof(ECClaimSystem.Models.Elements.ConstantsKey.DecisionStatus), (ECClaimSystem.Models.Elements.ConstantsKey.DecisionStatus)item.DecisionStatus), "Select Decision", new { @class = "form-control", onchange = "UpdateDecision(this," + @item.ClaimId + ")" })
+
+
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownListFor(modelItem => item.DecisionStatus, EnumHelper.GetSelectList(typeof(ECClaimSystem.Models.Elements.ConstantsKey.DecisionStatus), (ECClaimSystem.Models.Elements.ConstantsKey.DecisionStatus)item.DecisionStatus), "Select Decision", new { @class = "form-control", @style="disabled"})
+                                        }
+
+                                    </td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.Active)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Details", "Details", new { id = item.ClaimId})
+                                        @if (item.HasEvidence == true && item.FinalClosureDate.Value.AddDays(item.OutCome) > DateTime.Now)
+                                        {
+                                            @Html.ActionLink("Details", "Details", new { id = item.ClaimId })
+
+                                        }
+                                        | @Html.ActionLink("Send Email", null, new { onclick = "SendMail("+@item.ClaimId+")" })
                                     </td>
                                 </tr>
                             }
@@ -118,9 +121,17 @@
     </div>
 </div>
 <script>
-    function SortByFaculty(item) {
+    function UpdateDecision(item, id) {
         var value = $(item).val();
-        $("#formFaculty").attr("action", "/ECManager/FilterECClaimByFaculty?facultyId=" + value);
-        document.formFaculty.submit();
+        var data = { decisionstatus: value, claimid: id };
+        $.post("/ECCoordinator/UpdateDecision", data, function (response) {
+
+        })
+    }
+    function SendMail(id) {
+        var data = {id : id};
+        $.post("/ECCoordinator/SendMail", data, function (response) {
+            alert(response);
+        })
     }
 </script>

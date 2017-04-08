@@ -265,12 +265,20 @@
     <Content Include="Views\Student\Details.cshtml" />
     <Content Include="Views\ECManager\ShowListECClaim.cshtml" />
     <Content Include="Views\ECManager\Details.cshtml" />
+    <Content Include="Views\ECCoordinator\ShowListECClaim.cshtml" />
+    <Content Include="Views\ECCoordinator\Details.cshtml" />
+    <Content Include="Views\Administrator\ShowListECClaim.cshtml" />
+    <Content Include="Views\Administrator\Details.cshtml" />
+    <Content Include="Views\Administrator\GetAllUser.cshtml" />
+    <Content Include="Views\Administrator\Edit.cshtml" />
+    <Content Include="Views\Administrator\CreateUser.cshtml" />
+    <Content Include="Views\Administrator\Setting.cshtml" />
+    <Content Include="Views\Administrator\RedirectStatisticPage.cshtml" />
+    <Content Include="Views\Administrator\RedirectReportPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="File\Evidence\" />
-    <Folder Include="Views\Administrator\" />
-    <Folder Include="Views\ECCoordinator\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

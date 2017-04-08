@@ -18,7 +18,7 @@ namespace ECClaimSystem.Models.Elements
         public enum ClaimStatus
         {
            Pending = 1, 
-           Accepted = 2,
+           Processing = 2,
            Processed = 3,
            Rejected = 4
         }
@@ -37,6 +37,16 @@ namespace ECClaimSystem.Models.Elements
         {
            ClosureDate = 1,
            Faculty = 2
+        }
+        public enum Gender
+        {
+            Male = 1,
+            Female = 2
+        }
+        public enum ReportType
+        {
+           NotEvidence = 1,
+            DecisionLate = 2
         }
     }
 }

@@ -9,6 +9,7 @@
         lsFaculty = Session["Faculties"] as List<Faculty>;
     }
 }
+
 @using (Html.BeginForm("FilterECClaimByFaculty", "ECManager", FormMethod.Post, new { id = "formFaculty", name = "formFaculty" }))
 {
     <div class="col-md-12">
@@ -18,13 +19,11 @@
 
             </div>
         </div>
-        
+
     </div>
-   
+
 
 }
-
-
 <span class="text-danger">@ViewBag.Message</span>
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
@@ -101,10 +100,10 @@
                                         }
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Active)
+                                        @Html.CheckBoxFor(modelItem => item.Active, new { onclick = "ChangeActiveStatusOfECClaim(this, "+@item.ClaimId+");" })
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Details", "Details", new { id = item.ClaimId})
+                                        @Html.ActionLink("Details", "Details", new { id = item.ClaimId })
                                     </td>
                                 </tr>
                             }
@@ -122,5 +121,12 @@
         var value = $(item).val();
         $("#formFaculty").attr("action", "/ECManager/FilterECClaimByFaculty?facultyId=" + value);
         document.formFaculty.submit();
+    }
+    function ChangeActiveStatusOfECClaim(item, id) {
+        var checked = $(item).is(":checked") == true ? true : false;
+        var data = { value: checked, claimId: id };
+        $.post("/Administrator/ChangeActiveStatusOfECClaim", data, function (response) {
+            alert(response);
+        })
     }
 </script>

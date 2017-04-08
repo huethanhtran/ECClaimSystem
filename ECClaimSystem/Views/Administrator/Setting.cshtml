@@ -1,0 +1,129 @@
+﻿@model IEnumerable<ECClaimSystem.Models.Setting>
+@{
+    ViewBag.Title = "Setting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Setting setting = new Setting();
+    if (Session["Setting"] != null)
+    {
+        setting = Session["Setting"] as Setting;
+    }
+}
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_content">
+            @using (Html.BeginForm("SubmitSetting", "Administrator", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal form-label-left" }))
+            {
+                <input type="text" style="visibility:hidden" value="@setting.Id" name="id" />
+                <div class="item form-group">
+
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        Key
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <span class="text-danger">@ViewBag.ErrorKey</span>
+                        <hr />
+                        <input type="text" name="key" value="@setting.Key" class="form-control col-md-7 col-xs-12" />
+                    </div>
+                </div>
+                <div class="item form-group">
+
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        Value
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <hr />
+                        <input type="text" name="value" value="@setting.Value" class="form-control col-md-7 col-xs-12" />
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-3">
+                        <input id="update" type="submit" class="btn btn-success" value="Submit" />
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("CancelCreateSetting","Administrator")'">Cancel</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_content">
+            <span class="text-danger">@ViewBag.Message</span>
+            @using (Html.BeginForm("SearchSetting", "Administrator", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal form-label-left" }))
+            {
+                <div class="item form-group">
+
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        Search
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-6">
+                            <input type="text" name="searchkey" value="" placeholder="setting key" class="form-control col-md-7 col-xs-12" />
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <input id="update" type="submit" class="btn btn-success" value="Search" />
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.Count() > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr>
+                                <th class="column-title">
+                                    Key
+                                </th>
+                                <th class="column-title">
+                                    Value
+                                </th>
+
+                                <th>
+                                    Active
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr class="even pointer">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Key)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Value)
+                                    </td>
+                                    <td>
+                                        @Html.CheckBoxFor(modelItem => item.Active, new { onclick = "ChangeActiveSetting(this, " + @item.Id + ");" })
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "EditSetting", new { id = item.Id })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+<script>
+    function ChangeActiveSetting(item, id) {
+        var checked = $(item).is(":checked") == true ? true : false;
+        var data = { value: checked, id: id };
+        $.post("/Administrator/ChangeActiveStatusSetting", data, function (response) {
+            alert(response);
+        })
+    }
+</script>
+

@@ -1,0 +1,192 @@
+﻿@model ECClaimSystem.Models.ECClaim
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<ECEvidence> lsEvidence = new List<ECEvidence>();
+    List<ECEvidence> lsEvidenceImage = new List<ECEvidence>();
+    if (Session["Evidences"] != null)
+    {
+        lsEvidence = Session["Evidences"] as List<ECEvidence>;
+        lsEvidenceImage = lsEvidence.Where(x => x.Type == (int)ECClaimSystem.Models.Elements.ConstantsKey.EvidenceType.Image).ToList();
+    }
+}
+
+<p>
+    @Html.ActionLink("Back to List", "ShowListECClaim")
+</p>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <h2>Details</h2>
+                <div>
+                    
+                    @using (Html.BeginForm("AcceptOrDenyECClaim","ECCoordinator",FormMethod.Post,new { @class= "form-horizontal form-label-left", @novalidate="", @id="formEC", @name="formEC" }))
+                    {
+                        <div>
+                            <input type="text" name="claimId" value="@Model.ClaimId" style="visibility:hidden" />
+                        </div>
+                        <div class="form-group">
+
+                            <label class="col-md-3 col-sm-3 col-xs-12">
+                                Summary
+                            </label>
+
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DisplayFor(model => model.Summary)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">
+                                Situation
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DisplayFor(model => model.Situation)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">
+                                Result
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DisplayFor(model => model.EffectSituation)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">
+                                Duration
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DisplayFor(model => model.CircumstanceStartDate, "0:dd/MM/yyyy") - @Html.DisplayFor(model => model.CircumstanceEndDate, "0:dd/MM/yyyy")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">
+                                Submitted Date - Final Closure Date - Result Date
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DisplayFor(model => model.SubmittedDate, "0:dd/MM/yyyy") - @Html.DisplayFor(model => model.FinalClosureDate, "0:dd/MM/yyyy") -
+                                @if (Model.DecisionDate != null)
+                                {
+                                    @Html.DisplayFor(model => model.DecisionDate, "0:dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    <span>Not yet</span>
+                                }
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">
+                                Claim Status
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @if (Model.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Pending)
+                                {
+                                    <span>Pending</span>
+                                }
+                                @if (Model.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Processing)
+                                {
+                                    <span>Processing</span>
+                                }
+                                @if (Model.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Processed)
+                                {
+                                    <span>Processed</span>
+                                }
+                                @if (Model.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Rejected)
+                                {
+                                    <span>Rejected</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">
+                                Decision
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @if (Model.DecisionStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.DecisionStatus.Pending)
+                                {
+                                    <span>Pending</span>
+                                }
+                                @if (Model.DecisionStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.DecisionStatus.Fail)
+                                {
+                                    <span>Fail</span>
+                                }
+                                @if (Model.DecisionStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.DecisionStatus.Success)
+                                {
+                                    <span>Success</span>
+                                }
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">
+                                Has Evidence
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DisplayFor(model => model.HasEvidence)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">
+                                Evidences
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+
+                                @for (int i = 0; i < lsEvidenceImage.Count; i++)
+                                {
+
+                                    if (i % 3 == 0)
+                                    {
+                                        <div class="clearfix"></div>
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div class="x_panel tile">
+                                                    <img src='../../File/Evidence/@lsEvidenceImage[i].EvidenceName' alt="image" width="200" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <div class="x_panel tile">
+                                                <img src='../../File/Evidence/@lsEvidenceImage[i].EvidenceName' alt="image" width="200" />
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                @foreach (var item in lsEvidence.Where(x => x.Type == (int)ECClaimSystem.Models.Elements.ConstantsKey.EvidenceType.Pdf).ToList())
+                                {
+                                    <iframe src="../../File/Evidence/b9970d39bc844c3baf9ac49019875467.pdf" style="width: 100%;height: 500px;border: solid 1px;"></iframe>
+                                }
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button id="accept" type="button" class="btn btn-success" value="Accept" onclick="acceptClaim();">Accept</button>
+                                <button id="deny" type="button" class="btn btn-success" value="Deny" onclick="denyClaim();">Deny</button>
+                            </div>
+                        </div>
+                    }
+               
+
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    function acceptClaim() {
+        $("#formEC").attr("action", "/ECCoordinator/AcceptOrDenyECClaim?type=1");
+        document.formEC.submit();
+    }
+    function denyClaim() {
+        $("#formEC").attr("action", "/ECCoordinator/AcceptOrDenyECClaim?type=2");
+        document.formEC.submit();
+    }
+</script>
+

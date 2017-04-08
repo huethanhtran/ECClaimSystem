@@ -1,0 +1,101 @@
+﻿@model IEnumerable<ECClaimSystem.Models.User>
+
+@{
+    ViewBag.Title = "GetAllUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ActionLink("Create New User", "CreateUser", "Administrator")
+<span class="text-danger">@ViewBag.Message</span>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_content">
+            @if (Model.Count() > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr>
+                                <th class="column-title">
+                                    Full Name
+                                </th>
+                                <th class="column-title">
+                                    Address
+                                </th>
+                                <th class="column-title">
+                                    Email
+                                </th>
+                                <th class="column-title">
+                                    Phone
+                                </th>
+                                <th class="column-title">
+                                    Gender
+                                </th>
+                                <th class="column-title">
+                                    Role
+                                </th>
+                                <th>
+                                    Active
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr class="even pointer">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserFullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Phone)
+                                    </td>
+                                    <td>
+                                        @if (item.Gender == (int)ECClaimSystem.Models.Elements.ConstantsKey.Gender.Male)
+                                        {
+                                            <span>Male</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Female</span>
+                                        }
+
+                                    </td>
+                                    <td>
+                                       @Html.DisplayFor(modelItem => item.Role.RoleName)
+                                    </td>
+                                    <td>
+                                        @Html.CheckBoxFor(modelItem => item.Active, new { onclick = "ChangeActiveStatusUser(this, "+@item.UserId+");" })
+                                    </td>
+                                    <td>
+                                       @Html.ActionLink("Edit","Edit", new { id = item.UserId})
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+
+        </div>
+    </div>
+</div>
+<script>
+    function ChangeActiveStatusUser(item, id) {
+        var checked = $(item).is(":checked") == true ? true : false;
+        var data = { userId: id, value: checked };
+        $.post("/Administrator/ChangeActiveStatusUser", data, function (response) {
+            alert(response);
+        })
+    }
+</script>

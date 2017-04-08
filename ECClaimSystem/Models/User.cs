@@ -9,9 +9,9 @@ namespace ECClaimSystem.Models
     public class User
     {
         public long UserId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "This field can not be empty")]
+       
         public string AccountId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "This field can not be empty")]
+      
         public string Password { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "This field can not be empty")]
         public string UserFullName { get; set; }
@@ -25,12 +25,12 @@ namespace ECClaimSystem.Models
         public string Phone { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "This field can not be empty")]
         public string Email { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "This field can not be empty")]
         public Faculty Faculty { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "This field can not be empty")]
         public Role Role { get; set; }
         public bool Active { get; set; }
-
+        public int? FacultyId { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "This field can not be empty")]
+        public int RoleId { get; set; }
 
     }
 }

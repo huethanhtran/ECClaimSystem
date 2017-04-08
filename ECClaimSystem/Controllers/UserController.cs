@@ -109,7 +109,7 @@ namespace ECClaimSystem.Controllers
 
         }
 
-        public ActionResult DeleteECClaim(int id)
+        public ActionResult DeleteECClaim(long id)
         {
             List<ECClaim> lsClaim = null;
             string controllerName = GetControllerNameFromUser();

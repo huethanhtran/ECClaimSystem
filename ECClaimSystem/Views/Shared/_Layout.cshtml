@@ -45,10 +45,22 @@
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
                             <ul class="nav side-menu">
-                                @if (u.RoleId == (int)ECClaimSystem.Models.Elements.ConstantsKey.Role.ECManager)
+                                @if (u.RoleId == (int)ECClaimSystem.Models.Elements.ConstantsKey.Role.Administrator)
                                 {
                                     <li>
-                                        
+                                        @Html.ActionLink("EC Claims", "Index", "Administrator")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("User", "GetAllUser", "Administrator")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Setting", "GetAllSetting", "Administrator")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Statistics", "RedirectStatisticPage", "Administrator")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Reports", "RedirectReportPage", "Administrator")
                                     </li>
                                 }
                             </ul>

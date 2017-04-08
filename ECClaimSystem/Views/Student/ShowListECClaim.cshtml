@@ -68,9 +68,9 @@
                                         {
                                             <span>Pending</span>
                                         }
-                                        @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Accepted)
+                                        @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Processing)
                                         {
-                                            <span>Accepted</span>
+                                            <span>Processing</span>
                                         }
                                         @if (item.ClaimStatus == (int)ECClaimSystem.Models.Elements.ConstantsKey.ClaimStatus.Processed)
                                         {

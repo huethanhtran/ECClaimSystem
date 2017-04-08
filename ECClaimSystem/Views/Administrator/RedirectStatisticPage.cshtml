@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ECClaimSystem.Models.ECClaim>
 
 @{
-    ViewBag.Title = "ShowListECClaim";
+    ViewBag.Title = "RedirectStatisticPage";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Faculty> lsFaculty = new List<Faculty>();
     if (Session["Faculties"] != null)
@@ -9,7 +9,8 @@
         lsFaculty = Session["Faculties"] as List<Faculty>;
     }
 }
-@using (Html.BeginForm("FilterECClaimByFaculty", "ECManager", FormMethod.Post, new { id = "formFaculty", name = "formFaculty" }))
+
+@using (Html.BeginForm("FilterECClaimByFaculty", "Administrator", FormMethod.Post, new { id = "formFaculty", name = "formFaculty" }))
 {
     <div class="col-md-12">
         <div class="col-md-5">
@@ -18,14 +19,16 @@
 
             </div>
         </div>
-        
+
     </div>
-   
+
 
 }
 
 
 <span class="text-danger">@ViewBag.Message</span>
+<span class="text-danger">@ViewBag.TotalUser</span>
+<span class="text-danger">@ViewBag.Percent</span>
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
         <div class="x_content">
@@ -104,7 +107,7 @@
                                         @Html.DisplayFor(modelItem => item.Active)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Details", "Details", new { id = item.ClaimId})
+                                        @Html.ActionLink("Details", "Details", new { id = item.ClaimId })
                                     </td>
                                 </tr>
                             }
@@ -120,7 +123,7 @@
 <script>
     function SortByFaculty(item) {
         var value = $(item).val();
-        $("#formFaculty").attr("action", "/ECManager/FilterECClaimByFaculty?facultyId=" + value);
+        $("#formFaculty").attr("action", "/Administrator/FilterECClaimByFaculty?facultyId=" + value);
         document.formFaculty.submit();
     }
 </script>
