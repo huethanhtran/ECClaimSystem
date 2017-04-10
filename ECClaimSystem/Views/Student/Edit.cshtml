@@ -113,7 +113,7 @@
                         <hr />
                         @if (Model.SubmittedDate.Value.AddHours(1) > DateTime.Now)
                         {
-                            @Html.TextAreaFor(model => model.EffectSituation, 8, 50, new { @class = "form-control col-md-7 col-xs-12", @readonly = true })
+                            @Html.TextAreaFor(model => model.EffectSituation, 8, 50, new { @class = "form-control col-md-7 col-xs-12"})
                         }
                         else
                         {

@@ -19,7 +19,7 @@ namespace ECClaimSystem.Repository
         List<Faculty> GetAllFaculty();
         List<ECClaim> GetECClaimsByFaculty(int facultyId);
         List<ECEvidence> GetEvidencesByECClaim(long ClaimId);
-        void AcceptECClaim(ECClaim ec);
+        void AcceptOrDenyECClaim(ECClaim ec);
         void UpdateDecision(int decisionStatus, long claimId);
         string SendMail(User u, long claimId);
         string ChangeActiveOfECClaim(long claimId, bool value);

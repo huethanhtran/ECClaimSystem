@@ -99,7 +99,7 @@ namespace ECClaimSystem.Controllers
                 ClaimStatus = type == 1 ? (int)ClaimStatus.Processing : (int)ClaimStatus.Rejected,
                 ProcessedUser = u.UserId
             };
-            _ecClaimRepository.AcceptECClaim(ec);
+            _ecClaimRepository.AcceptOrDenyECClaim(ec);
             return RedirectToAction("Details", new { id = model.ClaimId });
 
 

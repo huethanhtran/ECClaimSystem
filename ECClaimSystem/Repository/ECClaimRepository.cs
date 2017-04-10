@@ -156,7 +156,7 @@ namespace ECClaimSystem.Repository
             return _db.ECEvidences.Where(x => x.ClaimId == ClaimId && x.Active == true).ToList();
         }
 
-        public void AcceptECClaim(ECClaim ec)
+        public void AcceptOrDenyECClaim(ECClaim ec)
         {
             ECClaim claim = _db.ECClaims.Where(x => x.ClaimId == ec.ClaimId).SingleOrDefault();
             if (claim != null)
@@ -172,6 +172,7 @@ namespace ECClaimSystem.Repository
             ECClaim ec = _db.ECClaims.Where(x => x.ClaimId == claimId).SingleOrDefault();
             if (ec != null)
             {
+                ec.ClaimStatus = (int)ClaimStatus.Processed;
                 ec.DecisionStatus = decisionStatus;
                 ec.DecisionDate = DateTime.Now;
                 _db.SubmitChanges();

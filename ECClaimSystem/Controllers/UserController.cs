@@ -70,8 +70,12 @@ namespace ECClaimSystem.Controllers
                 }
                 errormessage = "This account is incorrect";
             }
-            errormessage = "Check data again!";
-            return View("Login", new { message = errormessage });
+            else
+            {
+                errormessage = "Check data again!";
+            }
+           
+            return RedirectToAction("Login", new { message = errormessage });
         }
 
         [HttpGet]
